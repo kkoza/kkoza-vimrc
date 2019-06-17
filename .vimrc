@@ -1,3 +1,11 @@
+" Dependencies
+"
+" FZF - brew install fzf
+" $(brew --prefix)/opt/fzf/install
+"
+" Silver surfer - brew install the_silver_surfer for Ag command
+" Monokai color scheme optional
+
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'pangloss/vim-javascript'
@@ -6,13 +14,15 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'jparise/vim-graphql'
+Plug 'mileszs/ack.vim' " Ag/Ack (silver surfer)
 call plug#end()
 
 
 " Tabs
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Commands
@@ -42,16 +52,12 @@ set showmatch
 filetype indent on
 
 function! Highlighter() abort
-    " 58 = violet
-    "
-    "highlight Comment ctermfg=57
-    "highlight LineNr ctermfg=57
+    highlight TabLineFill cterm=none ctermfg=59  ctermbg=60 
+    highlight TabLine     cterm=none ctermfg=30 ctermbg=31
+    highlight TabLineSel  cterm=none ctermfg=30 ctermbg=31
     highlight Comment ctermfg=59
     highlight LineNr ctermfg=59
     highlight javaScriptGloba ctermfg=57
-    highlight TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
-    highlight TabLine ctermfg=Blue ctermbg=Yellow
-    highlight TabLineSel ctermfg=Red ctermbg=Yellow
     "highlight identifier ctermfg=187
 endfunction
 
@@ -61,8 +67,8 @@ augroup kkoza
 augroup END
 syntax on
 syntax enable
-" colorscheme monokai
-colorscheme slate
+colorscheme monokai
+"colorscheme slate
 
 " Custom mappings
 imap jk <Esc>
@@ -72,8 +78,11 @@ inoremap <s-Tab> <C-d>
 autocmd vimenter * NERDTree " scrooloose/nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
+" fzf
 map ; :GFiles<CR>
 noremap , ;
+" Silver surfer (Ack.vim)
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Custom highlights
 filetype plugin indent on
