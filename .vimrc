@@ -3,7 +3,7 @@
 " FZF - brew install fzf
 " $(brew --prefix)/opt/fzf/install
 "
-" Silver surfer - brew install the_silver_surfer for Ag command
+" Silver searcher - brew install the_silver_searcher for Ag command
 " Monokai color scheme optional
 
 " Plugins
@@ -15,7 +15,7 @@ Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'jparise/vim-graphql'
-Plug 'mileszs/ack.vim' " Ag/Ack (silver surfer)
+Plug 'mileszs/ack.vim' " Ag/Ack (silver searcher)
 call plug#end()
 
 
@@ -83,7 +83,7 @@ map <C-n> :NERDTreeToggle<CR>
 " fzf
 map ; :GFiles<CR>
 noremap , ;
-" Silver surfer (Ack.vim)
+" Silver searcher (Ack.vim)
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " lightline
 " Set colors, show relative file path
