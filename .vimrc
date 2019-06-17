@@ -49,7 +49,9 @@ set incsearch
 set ignorecase
 set showmatch
 
+" Custom highlights
 filetype indent on
+filetype plugin indent on
 
 function! Highlighter() abort
     highlight TabLineFill cterm=none ctermfg=59  ctermbg=60 
@@ -83,9 +85,18 @@ map ; :GFiles<CR>
 noremap , ;
 " Silver surfer (Ack.vim)
 let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" Custom highlights
-filetype plugin indent on
+" lightline
+" Set colors, show relative file path
+let g:lightline = {
+      \ 'colorscheme': 'molokai',
+      \ 'component_function': {
+      \   'filename': 'LightLineFilename'
+      \ }
+      \ }
+function! LightLineFilename()
+  return expand('%')
+endfunction
+set noshowmode
 
 " Tools
 if &diff
