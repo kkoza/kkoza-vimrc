@@ -9,6 +9,7 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'pangloss/vim-javascript'
+Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
@@ -16,6 +17,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'jparise/vim-graphql'
 Plug 'mileszs/ack.vim' " Ag/Ack (silver searcher)
+Plug 'tpope/vim-obsession' " :Obsess [sessionFile]
 call plug#end()
 
 
@@ -77,9 +79,9 @@ imap jk <Esc>
 imap JK <Esc>
 nmap cw ciw
 inoremap <s-Tab> <C-d>
-autocmd vimenter * NERDTree " scrooloose/nerdtree
-map <C-n> :NERDTreeToggle<CR>
 
+" scrooloose/nerdtree
+map <C-n> :NERDTreeToggle<CR>
 " fzf
 map ; :GFiles<CR>
 noremap , ;
