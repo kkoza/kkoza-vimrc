@@ -1,13 +1,8 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath = &runtimepath
-" source ~/.vimrc
-
 " COLORSCHEME
 colorscheme deus
 let g:airline_theme='deus'
 
-" TODO
-" fuzzy finder show hidden
+" TODO - Language Server
 
 " CUSTOM MAPPINGS
 imap jk <Esc>
@@ -24,7 +19,13 @@ tnoremap <C-w>j <C-\><C-n><C-w>j
 tnoremap <C-w>k <C-\><C-n><C-w>k
 tnoremap <C-w>l <C-\><C-n><C-w>l
 
+" COMMANDS
+set showcmd
+set wildmenu
 
+" Reading markdown syntax highlight
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufFilePre,BufRead *.mdx set filetype=markdown
 " Utilize line numbers if diffing with neovim
 if &diff
     set number
@@ -34,14 +35,15 @@ if has('nvim')
   tmap <C-o> <C-\><C-n>
 endif
 
-" COMMANDS
-set showcmd
-set wildmenu
+" TABS
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 
 " GRAPHICS
 set cursorline
 set number
-set numberwidth=3
 set ruler
 set lazyredraw
 set splitbelow
@@ -71,7 +73,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 
-" Fuzzy searching
+" Fuzzy searching - HIGHLY suggest BurntSushi/ripgrep
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
@@ -87,7 +89,8 @@ Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
 
 " Language server / tags
-Plug 'ludovicchabant/vim-gutentags'
+" TODO reinstall gutentags
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/gem-ctags'
 
 " Ruby, rails
@@ -97,14 +100,13 @@ Plug 'tpope/vim-rbenv'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-" post install (yarn install | npm install) then load plugin only for editing supported files
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 " GraphQL
 Plug 'jparise/vim-graphql'
-"
+
+" Markdown
+Plug 'tpope/vim-markdown'
+
 " Misc utility
 Plug 'tpope/vim-dispatch'
 " Testing
@@ -123,8 +125,8 @@ map <leader>r :NERDTreeFind<cr>
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep hidden=true<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
@@ -159,8 +161,21 @@ endfunction
 " autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
 
 " Ruby development - ALE
-let g:ale_linters = {'ruby': ['standardrb']}
-let g:ale_fixers = {'javascript': ['eslint'], 'css': ['eslint'], 'ruby': ['standardrb']}
+let g:ale_linters = {
+      \ 'typescriptreact': ['prettier'],
+      \ 'javascriptreact': ['prettier'],
+      \ 'typescript': ['prettier'],
+      \ 'javascript': ['prettier'],
+      \ 'ruby': ['standardrb']
+      \ }
+let g:ale_fixers = {
+      \ 'typescriptreact': ['prettier'],
+      \ 'javascriptreact': ['prettier'],
+      \ 'typescript': ['prettier'],
+      \ 'javascript': ['prettier'],
+      \ 'css': ['prettier'],
+      \ 'ruby': ['standardrb']
+      \  }
 let g:ale_fix_on_save = 1
 " Ruby development - Fixes standardrb conflict w/ vim-ruby
 let g:ruby_indent_assignment_style = 'variable'
