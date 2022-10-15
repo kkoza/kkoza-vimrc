@@ -2,14 +2,16 @@
 colorscheme deus
 let g:airline_theme='deus'
 
-" TODO - Language Server
+" TODO statusline fugitive
 
 " CUSTOM MAPPINGS
 imap jk <Esc>
 imap JK <Esc>
 nmap cw ciw
+
 " Open tag in new split
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+
 " Preferred search order
 noremap # *
 noremap * # 
@@ -77,6 +79,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
+
 " Aesthetics
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -85,11 +88,10 @@ Plug 'kshenoy/vim-signature'
 
 " PLUGINS - LANGUAGES, LINTING, ETC.
 Plug 'dense-analysis/ale'
-" Language Server
-Plug 'neovim/nvim-lspconfig'
 
 " Language server / tags
-" TODO reinstall gutentags
+" Autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/gem-ctags'
 
@@ -112,14 +114,8 @@ Plug 'tpope/vim-dispatch'
 " Testing
 Plug 'vim-test/vim-test'
 
-" TODO
-"Plug 'SirVer/ultisnips'
-"Plug 'epilande/vim-es2015-snippets'
-" Solargraph language server?
 call plug#end()
 
-" PLUGIN MODIFICATIONS
-" Custom mappings
 " Open file in NerdTree - TODO identify if i like this
 map <leader>r :NERDTreeFind<cr>
 nnoremap <C-n> :NERDTreeToggle<CR>
@@ -130,12 +126,17 @@ nnoremap <leader>fg <cmd>Telescope live_grep hidden=true<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+" Utilize tab to autocomplete
+inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
+inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
+
 " Custom Variables
 " Nerdtree hidden
 let NERDTreeShowHidden=1
 
 " Airline views
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
@@ -147,6 +148,7 @@ let g:startify_lists = [
         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
         \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
+
 let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim'}, '~/.zshrc' ]
 
 function! GetUniqueSessionName()
